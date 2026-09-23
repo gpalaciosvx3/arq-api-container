@@ -1,8 +1,8 @@
-# aq-api-container
+# arq-api-container
 
 Arquetipo de API contenerizada NestJS + Fastify (TypeScript). Punto de partida para proyectos que se despliegan como contenedor —dentro o fuera de AWS— con Clean Architecture y pruebas BDD. Incluye una feature de referencia `ping/pong` y un módulo `health` completamente implementados.
 
-Todo lo transversal —errores, logging, decorador de ejecución, tipos de respuesta— vive en las librerías [`@gpalacios/*`](https://www.npmjs.com/package/@gpalacios/core), no en este repositorio. Aquí solo queda el negocio y el cableado.
+Todo lo transversal —errores, logging, decorador de ejecución, tipos de respuesta— vive en las librerías [`@gpkit/*`](https://www.npmjs.com/package/@gpkit/core), no en este repositorio. Aquí solo queda el negocio y el cableado.
 
 El artefacto de despliegue es **la imagen Docker**: el mismo repo sirve para Railway, DigitalOcean, cualquier VPS, EC2, ECS o EKS.
 
@@ -27,16 +27,16 @@ El artefacto de despliegue es **la imagen Docker**: el mismo repo sirve para Rai
 
 | Paquete | Qué aporta a este proyecto |
 |---|---|
-| `@gpalacios/core` | `CustomException`, `ValidationException`, `ErrorDictionary`, `getLogger()` con sink de consola por defecto, `@HandleExecution`, tipos `ApiSuccessBody`/`ApiErrorBody` |
-| `@gpalacios/arch-rules` | Perfil de dependency-cruiser que verifica las fronteras entre capas |
+| `@gpkit/core` | `CustomException`, `ValidationException`, `ErrorDictionary`, `getLogger()` con sink de consola por defecto, `@HandleExecution`, tipos `ApiSuccessBody`/`ApiErrorBody` |
+| `@gpkit/arch-rules` | Perfil de dependency-cruiser que verifica las fronteras entre capas |
 
-`@gpalacios/aws` (clientes de DynamoDB, S3, SQS, SNS, SES, Step Functions, SSM) **no está instalado**: la feature `ping` no toca ningún servicio. Al añadir el primero:
+`@gpkit/aws` (clientes de DynamoDB, S3, SQS, SNS, SES, Step Functions, SSM) **no está instalado**: la feature `ping` no toca ningún servicio. Al añadir el primero:
 
 ```bash
-npm i @gpalacios/aws @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb   # solo el peer que uses
+npm i @gpkit/aws @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb   # solo el peer que uses
 ```
 
-`@gpalacios/aws-lambda` **no se usa aquí**: es lambda-only (middy, Powertools, factories de handler). Su equivalente en este arquetipo son el filtro y el interceptor globales de NestJS.
+`@gpkit/aws-lambda` **no se usa aquí**: es lambda-only (middy, Powertools, factories de handler). Su equivalente en este arquetipo son el filtro y el interceptor globales de NestJS.
 
 **Regla dura:** si algo de una librería resuelve lo que necesitas, se usa — no se escribe una versión local ni un wrapper que la envuelva. Si la librería no cubre un caso real, se reporta a `gpalacios-platform` en vez de taparlo aquí.
 
@@ -45,7 +45,7 @@ npm i @gpalacios/aws @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb   # solo el 
 ## Estructura del proyecto
 
 ```
-aq-api-container/
+arq-api-container/
   docker/                          # Dockerfile + docker-compose
   specs/                           # Documentación OpenAPI modular
   src/
@@ -84,10 +84,10 @@ aq-api-container/
 |---|---|
 | Runtime | Node.js 22, TypeScript 5.7 strict |
 | Framework | NestJS 11 + `@nestjs/platform-fastify` (Fastify 5) |
-| Plataforma | `@gpalacios/core` |
+| Plataforma | `@gpkit/core` |
 | Validación | Zod 3.x |
 | Tests | jest-cucumber 4.x (BDD: `.feature` + `.steps.ts`) |
-| Arquitectura | dependency-cruiser + `@gpalacios/arch-rules` |
+| Arquitectura | dependency-cruiser + `@gpkit/arch-rules` |
 | Documentación | OpenAPI 3.0.3 modular + Redocly CLI |
 | Contenedor | Dockerfile multi-stage (Node 22 alpine) |
 | Calidad | Prettier 3.x + Husky 9.x (pre-commit y pre-push) |
@@ -131,7 +131,7 @@ El módulo `health` expone `GET /health` con el estado y el uptime del proceso. 
 
 ### Códigos de error
 
-Los transversales los aporta `ErrorDictionary` de `@gpalacios/core` — no se redefinen aquí:
+Los transversales los aporta `ErrorDictionary` de `@gpkit/core` — no se redefinen aquí:
 
 | Código | HTTP | Descripción |
 |---|---|---|
@@ -216,7 +216,7 @@ Al añadir un endpoint se agrega su `paths/` y se referencia desde `openapi.yaml
 npm run arch:check
 ```
 
-Aplica el perfil `@gpalacios/arch-rules/serverless-nest` sobre `src/`:
+Aplica el perfil `@gpkit/arch-rules/serverless-nest` sobre `src/`:
 
 - ninguna feature importa los internos de otra
 - `domain/` no conoce `application/` ni `infrastructure/`
@@ -274,8 +274,8 @@ Los tests usan **jest-cucumber**: cada feature tiene un archivo `.feature` (Gher
 La imagen es multi-stage, corre como usuario `node`, sin dev-dependencies, con `HEALTHCHECK` apuntando a `/health`. El apagado limpio ante `SIGTERM` lo maneja `app.enableShutdownHooks()`.
 
 ```bash
-docker build -f docker/Dockerfile -t aq-api-container .
-docker run -p 3000:3000 aq-api-container
+docker build -f docker/Dockerfile -t arq-api-container .
+docker run -p 3000:3000 arq-api-container
 ```
 
 El contexto de build es la raíz del repo, por eso el `.dockerignore` vive ahí: Docker solo lo lee desde la raíz del contexto.

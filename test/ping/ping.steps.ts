@@ -1,4 +1,4 @@
-import { ValidationException } from '@gpalacios/core';
+import { ValidationException } from '@gpkit/core';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
 import { Test } from '@nestjs/testing';
 import { defineFeature, loadFeature } from 'jest-cucumber';

@@ -1,4 +1,4 @@
-import type { InputError } from '@gpalacios/core';
+import type { InputError } from '@gpkit/core';
 
 export class AppErrorDictionary {
   static readonly PING_NOT_AVAILABLE: InputError = {

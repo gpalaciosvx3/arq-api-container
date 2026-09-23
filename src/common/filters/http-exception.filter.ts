@@ -1,4 +1,4 @@
-import { CustomException, ErrorDictionary, type ApiErrorBody } from '@gpalacios/core';
+import { CustomException, ErrorDictionary, type ApiErrorBody } from '@gpkit/core';
 import { Catch, HttpException, HttpStatus } from '@nestjs/common';
 import type { ArgumentsHost, ExceptionFilter } from '@nestjs/common';
 import type { FastifyReply } from 'fastify';

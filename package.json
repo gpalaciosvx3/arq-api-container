@@ -1,7 +1,7 @@
 {
-  "name": "aq-api-container",
+  "name": "arq-api-container",
   "version": "1.0.0",
-  "description": "Arquetipo de API contenerizada — NestJS + Fastify + Clean Architecture sobre @gpalacios/*",
+  "description": "Arquetipo de API contenerizada — NestJS + Fastify + Clean Architecture sobre @gpkit/*",
   "private": true,
   "scripts": {
     "build": "nest build",
@@ -20,7 +20,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@gpalacios/core": "^2.0.0",
+    "@gpkit/core": "^1.0.0",
     "@nestjs/common": "^11.1.28",
     "@nestjs/core": "^11.1.28",
     "@nestjs/platform-fastify": "^11.1.28",
@@ -30,7 +30,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@gpalacios/arch-rules": "^1.0.0",
+    "@gpkit/arch-rules": "^1.0.0",
     "@nestjs/cli": "^11.0.23",
     "@nestjs/testing": "^11.1.28",
     "@redocly/cli": "^2.51.1",

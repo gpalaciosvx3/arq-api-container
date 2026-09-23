@@ -1,4 +1,4 @@
-import { ErrorDictionary, ValidationException, getLogger } from '@gpalacios/core';
+import { ErrorDictionary, ValidationException, getLogger } from '@gpkit/core';
 import { Injectable } from '@nestjs/common';
 import { PingService } from '../../domain/service/ping.service';
 import { PingRequestSchema } from '../dtos/ping.request.dto';

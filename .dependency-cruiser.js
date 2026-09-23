@@ -1,1 +1,1 @@
-module.exports = require('@gpalacios/arch-rules/serverless-nest');
+module.exports = require('@gpkit/arch-rules/serverless-nest');

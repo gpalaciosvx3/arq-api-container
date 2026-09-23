@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: arq-container-api
   version: "1.0"
-  description: Arquetipo de API contenerizada — NestJS + Fastify sobre @gpalacios/*
+  description: Arquetipo de API contenerizada — NestJS + Fastify sobre @gpkit/*
   license:
     name: UNLICENSED
 servers:

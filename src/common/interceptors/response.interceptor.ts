@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { map } from 'rxjs/operators';
-import type { ApiSuccessBody } from '@gpalacios/core';
+import type { ApiSuccessBody } from '@gpkit/core';
 import type { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 import type { Observable } from 'rxjs';
 

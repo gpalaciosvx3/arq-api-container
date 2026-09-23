@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { getLogger } from '@gpalacios/core';
+import { getLogger } from '@gpkit/core';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
